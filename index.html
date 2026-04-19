@@ -397,29 +397,13 @@
 
     <!-- Header Slider -->
     <div class="slider-container" id="home">
-        <div class="slider" id="eventSlider">
-            <div class="slide" style="background-image: url('images/slide1.jpg');">
-                <div class="slide-content">
-                    <h2>Summer Vibes 2025</h2>
-                    <p>An unforgettable night of music and dance</p>
-                </div>
-            </div>
-            <div class="slide" style="background-image: url('images/slide2.jpg');">
-                <div class="slide-content">
-                    <h2>Neon Nights 2025</h2>
-                    <p>Experience the ultimate electronic music event</p>
-                </div>
-            </div>
-        </div>
+        <div class="slider" id="eventSlider"></div>
 
         <!-- Slider Controls -->
         <button class="slider-btn prev" onclick="changeSlide(-1)">❮</button>
         <button class="slider-btn next" onclick="changeSlide(1)">❯</button>
 
-        <div class="slider-controls">
-            <span class="dot active" onclick="currentSlide(0)"></span>
-            <span class="dot" onclick="currentSlide(1)"></span>
-        </div>
+        <div class="slider-controls" id="sliderDots"></div>
     </div>
 
     <!-- Past Events Section -->
@@ -519,12 +503,45 @@
     </footer>
 
     <script>
+        const sliderImages = [
+            // Put your new slider images into the images/ folder as slide5.jpg and slide6.jpg.
+            'images/slide5.jpg',
+            'images/slide6.jpg'
+        ];
+
         let currentIndex = 0;
+
+        function buildSlider() {
+            const slider = document.getElementById('eventSlider');
+            const dotsContainer = document.getElementById('sliderDots');
+
+            sliderImages.forEach((src, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.style.backgroundImage = `url('${src}')`;
+                slide.innerHTML = `
+                    <div class="slide-content">
+                        <h2>THE JOINT</h2>
+                        <p>Experience our best moments in every frame.</p>
+                    </div>
+                `;
+                slider.appendChild(slide);
+
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.addEventListener('click', () => currentSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+            if (dots.length) dots[0].classList.add('active');
+        }
 
         function showSlide(index) {
             const slider = document.getElementById('eventSlider');
             const dots = document.querySelectorAll('.dot');
-            
+
+            if (!dots.length) return;
             if (index >= dots.length) {
                 currentIndex = 0;
             } else if (index < 0) {
@@ -534,12 +551,8 @@
             }
 
             slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-
             dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === currentIndex) {
-                    dot.classList.add('active');
-                }
+                dot.classList.toggle('active', i === currentIndex);
             });
         }
 
@@ -551,10 +564,11 @@
             showSlide(index);
         }
 
-        // Auto-slide every 8 seconds
-        setInterval(() => {
-            changeSlide(1);
-        }, 8000);
+        document.addEventListener('DOMContentLoaded', () => {
+            buildSlider();
+            showSlide(0);
+            setInterval(() => changeSlide(1), 8000);
+        });
     </script>
 </body>
 </html>
