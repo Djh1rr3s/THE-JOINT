@@ -305,6 +305,57 @@
             gap: 0.3rem;
         }
 
+        .event-subsection {
+            margin-bottom: 4rem;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-strong) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.45);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--border);
+            box-shadow: 0 18px 45px rgba(87, 230, 117, 0.22);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .event-card.placeholder {
+            opacity: 0.95;
+            border-style: dashed;
+        }
+
+        .event-card.placeholder .event-image {
+            background: linear-gradient(135deg, #1f6e3a, #08220d);
+        }
+
         /* Footer */
         footer {
             background: rgba(12, 18, 12, 0.95);
@@ -412,84 +463,82 @@
         <div class="slider-controls" id="sliderDots"></div>
     </div>
 
-    <!-- Past Events Section -->
+    <!-- Events Section -->
     <section class="events-section" id="events">
-        <h2 class="section-title">Past Events</h2>
-        <div class="events-grid">
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #2ea36f, #0f3416);">🎉</div>
-                <div class="event-content">
-                    <h3 class="event-title">Summer Vibes 2025</h3>
-                    <div class="event-date">📅 August 15, 2025</div>
-                    <p class="event-description">An incredible night celebrating summer with live DJ sets, dancing, and unforgettable moments. Thousands of party-goers joined us for this massive event.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 2,500+ guests</span>
-                        <span class="detail-item">🎵 5 DJs</span>
+        <div class="event-subsection">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="events-grid">
+                <div class="event-card placeholder">
+                    <div class="event-image">⏳</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #1</h3>
+                        <div class="event-date">📅 Details coming soon</div>
+                        <p class="event-description">We are finalizing the next premium event. Full details will be posted soon, so stay tuned.</p>
+                        <div class="event-details">
+                            <span class="detail-item">📍 Venue details pending</span>
+                            <span class="detail-item">🎟️ Tickets launching soon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card placeholder">
+                    <div class="event-image">⏳</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #2</h3>
+                        <div class="event-date">📅 Details coming soon</div>
+                        <p class="event-description">New party plans are in progress. Watch this space for our next lineup and event experience.</p>
+                        <div class="event-details">
+                            <span class="detail-item">🎵 Artist lineup pending</span>
+                            <span class="detail-item">✨ More info coming</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card placeholder">
+                    <div class="event-image">⏳</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #3</h3>
+                        <div class="event-date">📅 Details coming soon</div>
+                        <p class="event-description">A fresh event experience is being created. Details will arrive shortly, including date, theme, and ticket release.</p>
+                        <div class="event-details">
+                            <span class="detail-item">👥 Capacity details pending</span>
+                            <span class="detail-item">🎉 Theme reveal soon</span>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #1e9d5f, #114d21);">🎚️</div>
-                <div class="event-content">
-                    <h3 class="event-title">Neon Nights 2025</h3>
-                    <div class="event-date">📅 July 22, 2025</div>
-                    <p class="event-description">A cutting-edge electronic music experience with stunning visual installations. This event featured top international electronic artists and immersive light shows.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 3,000+ guests</span>
-                        <span class="detail-item">🎨 Neon installations</span>
+        <div class="event-subsection">
+            <h2 class="section-title">Past Events</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ZxlLBg2BC-k" title="THE JOINT Highlights" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">THE JOINT Highlights</h3>
+                        <p class="event-description">Watch our top moments and the best energy from the latest events.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #51db7f, #0f351a);">🌸</div>
-                <div class="event-content">
-                    <h3 class="event-title">Spring Celebration</h3>
-                    <div class="event-date">📅 May 10, 2025</div>
-                    <p class="event-description">Welcome the season with our biggest party. Features live performances, food vendors, and a vibrant atmosphere celebrating new beginnings.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 1,800+ guests</span>
-                        <span class="detail-item">🍔 Food court</span>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/tp6tZWgOHM8" title="Epic Party Montage" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Epic Party Montage</h3>
+                        <p class="event-description">Relive the atmosphere and electric crowds from one of our most memorable nights.</p>
                     </div>
                 </div>
-            </div>
 
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #3dc26d, #122f17);">❄️</div>
-                <div class="event-content">
-                    <h3 class="event-title">Winter Wonderland</h3>
-                    <div class="event-date">📅 December 20, 2024</div>
-                    <p class="event-description">A magical evening with winter-themed decorations, live performances, and an enchanting atmosphere. The perfect way to celebrate the holiday season.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 2,200+ guests</span>
-                        <span class="detail-item">✨ Light show</span>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/JGSAaSMPxYQ" title="Live Event Recap" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                </div>
-            </div>
-
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #4ce284, #0b3212);">🎭</div>
-                <div class="event-content">
-                    <h3 class="event-title">Masquerade Ball</h3>
-                    <div class="event-date">📅 October 31, 2024</div>
-                    <p class="event-description">A sophisticated evening of elegance and mystery. Guests dressed in stunning costumes for this themed extravaganza with premium entertainment.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 1,500+ guests</span>
-                        <span class="detail-item">🎭 Costume contest</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="event-card">
-                <div class="event-image" style="background: linear-gradient(135deg, #53e18b, #0f3616);">🎸</div>
-                <div class="event-content">
-                    <h3 class="event-title">Live Music Night</h3>
-                    <div class="event-date">📅 September 5, 2024</div>
-                    <p class="event-description">Featuring live bands and acoustic performances throughout the night. A diverse lineup of talented musicians delivered an unforgettable musical experience.</p>
-                    <div class="event-details">
-                        <span class="detail-item">👥 1,200+ guests</span>
-                        <span class="detail-item">🎵 8 bands</span>
+                    <div class="event-content">
+                        <h3 class="event-title">Live Event Recap</h3>
+                        <p class="event-description">Catch the highlights and live performances from our last big event.</p>
                     </div>
                 </div>
             </div>
