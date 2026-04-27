@@ -9,16 +9,16 @@
     <meta name="theme-color" content="#081107">
     <style>
         :root {
-            --bg-start: #1a0a1f;
-            --bg-end: #120815;
-            --surface: #1e1124;
-            --surface-strong: #2a1833;
-            --text: #f0e6f5;
-            --muted: #b89cc4;
-            --accent: #d633b6;
-            --accent-dark: #a8208f;
-            --accent-soft: rgba(214, 51, 182, 0.18);
-            --border: rgba(214, 51, 182, 0.35);
+            --bg-start: #081107;
+            --bg-end: #111916;
+            --surface: #121914;
+            --surface-strong: #181f18;
+            --text: #e4f5d8;
+            --muted: #8fa88d;
+            --accent: #57e675;
+            --accent-dark: #34a749;
+            --accent-soft: rgba(87, 230, 117, 0.18);
+            --border: rgba(87, 230, 117, 0.35);
         }
 
         * {
@@ -37,7 +37,7 @@
 
         /* Navigation */
         nav {
-            background: rgba(26, 10, 31, 0.95);
+            background: rgba(12, 18, 12, 0.95);
             padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
@@ -78,7 +78,7 @@
             width: 100%;
             height: 600px;
             overflow: hidden;
-            background: linear-gradient(135deg, #0d0612, #1a0a1f);
+            background: linear-gradient(135deg, #050904, #0c120d);
         }
 
         .slider {
@@ -148,21 +148,21 @@
             background: rgba(255, 255, 255, 0.35);
             cursor: pointer;
             transition: all 0.25s ease;
-            border: 2px solid rgba(214, 51, 182, 0.65);
+            border: 2px solid rgba(87, 230, 117, 0.65);
             box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
         }
 
         .dot.active {
             background: var(--accent);
             transform: scale(1.35);
-            box-shadow: 0 0 0 5px rgba(214,51,182,0.15);
+            box-shadow: 0 0 0 5px rgba(87,230,117,0.15);
         }
 
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(214, 51, 182, 0.8);
+            background: rgba(87, 230, 117, 0.8);
             color: white;
             border: none;
             font-size: 2rem;
@@ -242,13 +242,13 @@
         .event-card:hover {
             transform: translateY(-10px);
             border-color: var(--border);
-            box-shadow: 0 18px 45px rgba(214, 51, 182, 0.22);
+            box-shadow: 0 18px 45px rgba(87, 230, 117, 0.22);
         }
 
         .event-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(135deg, #9c27b0, #4a148c);
+            background: linear-gradient(135deg, #2ea36f, #0f3416);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -285,7 +285,7 @@
         }
 
         .event-description {
-            color: #d4c4dc;
+            color: #c5d3b8;
             font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 1rem;
@@ -296,7 +296,7 @@
             flex-wrap: wrap;
             gap: 1rem;
             font-size: 0.85rem;
-            color: #b89cc4;
+            color: #9ab793;
         }
 
         .detail-item {
@@ -328,7 +328,7 @@
         .video-card:hover {
             transform: translateY(-10px);
             border-color: var(--border);
-            box-shadow: 0 18px 45px rgba(214, 51, 182, 0.22);
+            box-shadow: 0 18px 45px rgba(87, 230, 117, 0.22);
         }
 
         .video-wrapper {
@@ -353,12 +353,12 @@
         }
 
         .event-card.placeholder .event-image {
-            background: linear-gradient(135deg, #7b1fa2, #38006b);
+            background: linear-gradient(135deg, #1f6e3a, #08220d);
         }
 
         /* Footer */
         footer {
-            background: rgba(26, 10, 31, 0.95);
+            background: rgba(12, 18, 12, 0.95);
             padding: 2rem;
             text-align: center;
             border-top: 2px solid var(--accent);
@@ -389,21 +389,90 @@
         }
 
         .footer-text {
-            color: #9d8ca4;
+            color: #8d9d84;
             font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Social Media Buttons */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--accent);
+            color: var(--bg-start);
+            transform: translateY(-3px);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             nav {
-                flex-direction: column;
-                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: flex;
             }
 
             nav ul {
+                display: none;
                 flex-direction: column;
                 gap: 0.5rem;
                 text-align: center;
+                width: 100%;
+                padding-top: 1rem;
+            }
+
+            nav ul.active {
+                display: flex;
             }
 
             .slider-container {
@@ -444,7 +513,12 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <img src="logo.jpg" alt="THE VIBEZ REPUBLIC Logo" class="logo">
+        <img src="logo.jpg" alt="THE JOINT Logo" class="logo">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#events">Events</a></li>
@@ -553,21 +627,26 @@
                 <a href="tel:+1234567890">📞 +1 (234) 567-890</a>
                 <a href="#">📍 123 Party Street, City</a>
             </div>
-                <p class="footer-text">&copy; 2025 THE VIBEZ REPUBLIC. All rights reserved. | Experience Premium Events</p>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank" class="social-btn" title="Instagram">📷</a>
+                <a href="https://facebook.com" target="_blank" class="social-btn" title="Facebook">📘</a>
+                <a href="https://twitter.com" target="_blank" class="social-btn" title="Twitter">🐦</a>
+                <a href="https://tiktok.com" target="_blank" class="social-btn" title="TikTok">🎵</a>
+            </div>
+                <p class="footer-text">&copy; 2025 THE JOINT. All rights reserved. | Experience Premium Events</p>
         </div>
     </footer>
 
     <script>
-        const sliderImages = [
-            // The slider now uses the renamed image files in the images/ folder.
-            'images/slide1.jpg',
-            'images/slide2.jpg',
-            'images/slide3.jpg',
-            'images/slide4.jpg',
-            'images/slide5.jpg',
-            'images/slide6.jpg',
-            'images/slide7.jpg',
-            'images/slide8.jpg'
+        const sliderData = [
+            { src: 'images/slide1.jpg', title: 'THE JOINT', subtitle: 'Where Every Night Becomes a Memory' },
+            { src: 'images/slide2.jpg', title: 'PREMIUM VIBES', subtitle: 'Experience the Best Parties in Town' },
+            { src: 'images/slide3.jpg', title: 'LIVE MUSIC', subtitle: 'Top DJs & Live Performances' },
+            { src: 'images/slide4.jpg', title: 'GOOD TIMES', subtitle: 'Dance the Night Away' },
+            { src: 'images/slide5.jpg', title: 'THE JOINT', subtitle: 'Your Weekly Destination for Fun' },
+            { src: 'images/slide6.jpg', title: 'EPIC NIGHTS', subtitle: 'Unforgettable Experiences Await' },
+            { src: 'images/slide7.jpg', title: 'THE JOINT', subtitle: 'Join the Party Scene' },
+            { src: 'images/slide8.jpg', title: 'VIBEZ REPUBLIC', subtitle: 'Be Part of Something Special' }
         ];
 
         let currentIndex = 0;
@@ -576,14 +655,14 @@
             const slider = document.getElementById('eventSlider');
             const dotsContainer = document.getElementById('sliderDots');
 
-            sliderImages.forEach((src, index) => {
+            sliderData.forEach((data, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'slide';
-                slide.style.backgroundImage = `url('${src}')`;
+                slide.style.backgroundImage = `url('${data.src}')`;
                 slide.innerHTML = `
                     <div class="slide-content">
-                        <h2>THE VIBEZ REPUBLIC</h2>
-                        <p>Experience our best moments in every frame.</p>
+                        <h2>${data.title}</h2>
+                        <p>${data.subtitle}</p>
                     </div>
                 `;
                 slider.appendChild(slide);
@@ -596,6 +675,13 @@
 
             const dots = dotsContainer.querySelectorAll('.dot');
             if (dots.length) dots[0].classList.add('active');
+        }
+
+        function toggleMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navUl = document.querySelector('nav ul');
+            menuToggle.classList.toggle('active');
+            navUl.classList.toggle('active');
         }
 
         function showSlide(index) {
