@@ -3,6 +3,896 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE JOINT - Premium Events & Parties</title>
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="shortcut icon" href="logo.jpg" type="image/jpeg">
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #57e675;
+            --accent-dark: #34a749;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Platoon Style */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            transition: background 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hero Slider - Platoon Style */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            background: #000000;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .slide-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+        }
+
+        .slide-content h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .slide-content h3 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-content p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Slider Controls - Minimal Style */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 1rem 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        .prev {
+            left: 2rem;
+        }
+
+        .next {
+            right: 2rem;
+        }
+
+        /* Slider Dots */
+        .slider-controls {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .slide-counter {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 2px;
+            margin-right: 1rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.5);
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Events Section */
+        .events-section {
+            padding: 6rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 1rem auto 0;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .event-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-date {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .event-description {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .event-subsection {
+            margin-bottom: 5rem;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            border-color: var(--accent);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-card .event-content {
+            padding: 1.25rem;
+        }
+
+        .video-card .event-title {
+            font-size: 1rem;
+        }
+
+        .video-card .event-description {
+            font-size: 0.85rem;
+        }
+
+        /* Footer - Platoon Style */
+        footer {
+            background: #0a0a0a;
+            padding: 5rem 3rem 2rem;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-newsletter {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .footer-newsletter h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-newsletter p {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: #111;
+            border: 1px solid #222;
+            border-right: none;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--accent);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-dark);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-col p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #111;
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0,0,0,0.95);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+                padding: 0.8rem;
+            }
+
+            .prev {
+                left: 1rem;
+            }
+
+            .next {
+                right: 1rem;
+            }
+
+            .slider-controls {
+                bottom: 2rem;
+            }
+
+            .events-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-right: 1px solid #222;
+            }
+
+            .newsletter-form button {
+                padding: 1rem;
+            }
+
+            footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+
+            .footer-newsletter h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <img src="logo.jpg" alt="THE JOINT Logo" class="logo">
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Slider -->
+    <div class="slider-container" id="home">
+        <div class="slider" id="eventSlider"></div>
+
+        <!-- Slider Controls -->
+        <button class="slider-btn prev" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-btn next" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="slider-controls">
+            <span class="slide-counter" id="slideCounter">1 / 8</span>
+            <div id="sliderDots"></div>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <div class="event-subsection">
+            <h2 class="section-title">Upcoming Events</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-image">🎉</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #1</h3>
+                        <div class="event-date">Details coming soon</div>
+                        <p class="event-description">We are finalizing the next premium event. Full details will be posted soon.</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">🎵</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #2</h3>
+                        <div class="event-date">Details coming soon</div>
+                        <p class="event-description">New party plans are in progress. Watch this space for our next lineup.</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">✨</div>
+                    <div class="event-content">
+                        <h3 class="event-title">Upcoming Event #3</h3>
+                        <div class="event-date">Details coming soon</div>
+                        <p class="event-description">A fresh event experience is being created. Details will arrive shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-subsection">
+            <h2 class="section-title">Past Events</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/ZxlLBg2BC-k" title="THE JOINT Highlights" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">THE JOINT Highlights</h3>
+                        <p class="event-description">Watch our top moments and the best energy from the latest events.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/tp6tZWgOHM8" title="Epic Party Montage" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Epic Party Montage</h3>
+                        <p class="event-description">Relive the atmosphere and electric crowds from our most memorable nights.</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/JGSAaSMPxYQ" title="Live Event Recap" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Live Event Recap</h3>
+                        <p class="event-description">Catch the highlights and live performances from our last big event.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <!-- Let's Stay In Touch -->
+            <div class="footer-newsletter">
+                <h3>Let's Stay In Touch</h3>
+                <p>Get the latest updates on upcoming events and exclusive content.</p>
+                <form class="newsletter-form" onsubmit="return false;">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <p><i class="fas fa-envelope"></i> info@thejoint.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (234) 567-890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Party Street, City</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#events">Events</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com/thevibezrepublic" target="_blank" class="social-btn" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://tiktok.com/@thevibezrepublic" target="_blank" class="social-btn" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://youtube.com/@Thevibezengine" target="_blank" class="social-btn" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 THE JOINT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Slider Data with different text per image
+        const sliderData = [
+            { src: 'images/slide1.jpg', label: 'THE JOINT', title: 'Where Every Night Becomes a Memory', subtitle: 'Experience premium events like never before' },
+            { src: 'images/slide2.jpg', label: 'PREMIUM VIBES', title: 'Experience the Best Parties in Town', subtitle: 'Dance the night away with top DJs' },
+            { src: 'images/slide3.jpg', label: 'LIVE MUSIC', title: 'Top DJs & Live Performances', subtitle: 'Feel the rhythm of the night' },
+            { src: 'images/slide4.jpg', label: 'GOOD TIMES', title: 'Dance the Night Away', subtitle: 'Create unforgettable memories' },
+            { src: 'images/slide5.jpg', label: 'THE JOINT', title: 'Your Weekly Destination for Fun', subtitle: 'Every weekend brings something new' },
+            { src: 'images/slide6.jpg', label: 'EPIC NIGHTS', title: 'Unforgettable Experiences Await', subtitle: 'Be part of the vibe' },
+            { src: 'images/slide7.jpg', label: 'THE JOINT', title: 'Join the Party Scene', subtitle: 'The hottest events in town' },
+            { src: 'images/slide8.jpg', label: 'VIBEZ REPUBLIC', title: 'Be Part of Something Special', subtitle: 'Your community for premium entertainment' }
+        ];
+
+        let currentIndex = 0;
+
+        function buildSlider() {
+            const slider = document.getElementById('eventSlider');
+            const dotsContainer = document.getElementById('sliderDots');
+
+            sliderData.forEach((data, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'slide';
+                slide.style.backgroundImage = `url('${data.src}')`;
+                slide.innerHTML = `
+                    <div class="slide-content">
+                        <span class="slide-label">${data.label}</span>
+                        <h2>${data.title}</h2>
+                        <h3>${data.subtitle}</h3>
+                    </div>
+                `;
+                slider.appendChild(slide);
+
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.addEventListener('click', () => currentSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+
+            updateCounter();
+        }
+
+        function updateCounter() {
+            const counter = document.getElementById('slideCounter');
+            counter.textContent = `${currentIndex + 1} / ${sliderData.length}`;
+        }
+
+        function showSlide(index) {
+            const slider = document.getElementById('eventSlider');
+            const dots = document.querySelectorAll('.dot');
+
+            if (!dots.length) return;
+            if (index >= dots.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = dots.length - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+            updateCounter();
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+            resetAutoSlide();
+        }
+
+        let slideInterval;
+        const slideIntervalDelay = 6000;
+
+        function startAutoSlide() {
+            slideInterval = setInterval(() => changeSlide(1), slideIntervalDelay);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+
+        function resetAutoSlide() {
+            stopAutoSlide();
+            startAutoSlide();
+        }
+
+        function toggleMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navUl = document.querySelector('nav ul');
+            menuToggle.classList.toggle('active');
+            navUl.classList.toggle('active');
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            buildSlider();
+            showSlide(0);
+            startAutoSlide();
+
+            const sliderContainer = document.querySelector('.slider-container');
+            sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+            sliderContainer.addEventListener('mouseleave', startAutoSlide);
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE VIBEZ REPUBLIC - Premium Events & Parties</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="shortcut icon" href="logo.jpg" type="image/jpeg">
